@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Expense Tracker</h1>
+        <p>Track your daily expenses, categorize them, and see summaries.</p>
+      </header>
+
+      <!-- Expense Form -->
+      <section class="card">
+        <div class="form-header">
+          <h2 id="form-title">Add New Expense</h2>
+          <span id="edit-indicator" class="edit-indicator" style="display: none;">
+            Editing existing expense
+          </span>
+        </div>
+        <form id="expense-form">
+          <div class="form-row">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="e.g. Groceries"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              step="0.01"
+              min="0"
+              placeholder="e.g. 50.00"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="">Select category</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="expense_date">Date</label>
+            <input type="date" id="expense_date" name="expense_date" required />
+          </div>
+
+          <div class="form-row">
+            <label for="expense_type">Type</label>
+            <select id="expense_type" name="expense_type" required>
+              <option value="one_time">One-time</option>
+              <option value="recurring">Recurring</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="submit-button" class="btn-primary">Add Expense</button>
+            <button type="button" id="cancel-edit-button" class="btn-secondary" style="display: none;">
+              Cancel
+            </button>
+          </div>
+          <p id="form-error" class="error-message"></p>
+        </form>
+      </section>
+
+      <!-- Category Management (collapsible, so it's only visible when you want it) -->
+      <section class="card">
+        <details id="category-panel" class="details-panel">
+          <summary>Manage Categories</summary>
+
+          <div class="details-content">
+            <form id="category-form" class="category-form">
+              <div class="form-row">
+                <label for="new-category-name">Add a category</label>
+                <input
+                  type="text"
+                  id="new-category-name"
+                  placeholder="e.g. Subscriptions"
+                  autocomplete="off"
+                />
+              </div>
+              <button type="submit" class="btn-primary">Add Category</button>
+              <p id="category-error" class="error-message"></p>
+            </form>
+
+            <div class="category-list-wrapper">
+              <h3 class="subheading">Current categories</h3>
+              <ul id="category-list" class="chip-list"></ul>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- Filters -->
+      <section class="card">
+        <h2>Filters</h2>
+        <div class="filters">
+          <div class="form-row">
+            <label for="filter-category">Category</label>
+            <select id="filter-category">
+              <option value="">All</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="filter-month">Month</label>
+            <input type="month" id="filter-month" />
+          </div>
+
+          <div class="form-row">
+            <label for="filter-type">Type</label>
+            <select id="filter-type">
+              <option value="">All</option>
+              <option value="one_time">One-time</option>
+              <option value="recurring">Recurring</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Expense List -->
+      <section class="card card-expenses">
+        <div class="card-expenses-header">
+          <h2>Expenses</h2>
+          <div id="filtered-total" class="filtered-total">Filtered total: 0 ₼</div>
+        </div>
+        <div class="expenses-table-wrapper">
+          <div id="expenses-empty" class="empty-state">No expenses yet.</div>
+          <table id="expenses-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="expenses-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Summaries -->
+      <section class="summary-grid">
+        <div class="card">
+          <h2>Monthly Totals</h2>
+          <ul id="monthly-summary" class="summary-list"></ul>
+        </div>
+        <div class="card">
+          <h2>Category Totals</h2>
+          <ul id="category-summary" class="summary-list"></ul>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
